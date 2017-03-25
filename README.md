@@ -1,9 +1,11 @@
 # Victor Cao's Homework
-## Javascript Development
+## Javascript Development (JS\_SM\_04)
 ### General Assembly, Santa Monica
 
-#### Week 01
+#### Week 02
 * 99 🍻🍻 on the Wall
 * Random Address Generator
 
-#### Week 02
+#### Week 03
+* 
+* 

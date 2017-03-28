@@ -7,4 +7,4 @@
 * Random Address Generator
 
 #### Week 03
-* Currency Converter
+* [Currency Converter](https://htmlpreview.github.io/?https://github.com/vcao/homework_victorcao/blob/master/Week_03/index.html)

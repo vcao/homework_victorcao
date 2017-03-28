@@ -25,11 +25,31 @@
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet"> <!-- Google Font -->
 </head>
 <body>
-    <div class="container">
+    <div class="thebox">
+        <div class="row">
+            <div class="col-12"><h2>CAOxchange Intl.</h2></div>
+        </div>
+        <div class="row">
+            <div class="col-12"><h1 id="convertedAmount">💵 ➡ 💸</h1></div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <input id="amount">&nbsp;
+                <select name="currencies" id="rateFrom">
 
-        <input id="amount">
-        <button id="convert" class="btn btn-success">Convert</button>
-        <h3 id="convertedAmount"></h3>
+                </select>
+                &nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;
+                <select name="currencies" id="rateTo">
+
+                </select>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button id="convert" class="btn btn-success">Show Me The Money!</button>
+            </div>
+        </div>
     </div>
 
     <!-- Bootstrap core JavaScript

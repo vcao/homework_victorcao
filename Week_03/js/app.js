@@ -17,8 +17,9 @@ var converter = function () {
     var amountFrom = parseFloat($('#amount').val()); // parse as a float to get change assuming the currency supports it
     var rateFrom = $('#rateFrom').val(); // get user input for original currency
     var rateTo = $('#rateTo').val(); // get user input for target currency
-    var amountTo = (amountFrom * currencies[rateTo].rate) / currencies[rateFrom].rate; // Calculate the target currency. Access currencies object and use the user input for currencies to select the correct rates
-    return $('#convertedAmount').html(currencies[rateTo].symbol + " " + amountTo.toFixed(2)); // Access symbols of the currencies. Insert final currency amount and round it to two decimals places.
+    var amountTo = ((amountFrom * currencies[rateTo].rate) / currencies[rateFrom].rate).toFixed(2); // Calculate the target currency. Access currencies object and use the user input for currencies to select the correct rates
+    amountTo = commaSeparateNumber(amountTo);
+    return $('#convertedAmount').html(currencies[rateTo].symbol + " " + amountTo); // Access symbols of the currencies. Insert final currency amount and round it to two decimals places.
 };
 
 // anonymous function that triggers on load
@@ -30,3 +31,11 @@ var converter = function () {
 })();
 
 $('#convert').click(converter); // bind the converter function to the submit button
+
+
+function commaSeparateNumber(val){
+    while (/(\d+)(\d{3})/.test(val.toString())){ // convert item to string. Find a digit with three digits following. \d means digit. \d{3} means a sequence of three digits.
+        val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2'); // replace digit with three following digits with capture groups
+    }
+    return val; // return a string with thousands comma delimeter
+}

@@ -11,4 +11,4 @@
 
 
 #### Week 04
-* [99 🍻🍻 on the Wall - HTML](https://htmlpreview.github.io/?https://github.com/vcao/homework_victorcao/blob/master/Week_04/index.html)
+* [99 🍻🍻 on the Wall - HTML](https://github.com/vcao/homework_victorcao/blob/master/Week_04/vcao_beer/index.html)

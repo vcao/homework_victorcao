@@ -8,3 +8,7 @@
 
 #### Week 03
 * [Currency Converter](https://htmlpreview.github.io/?https://github.com/vcao/homework_victorcao/blob/master/Week_03/index.html)
+
+
+#### Week 04
+* [99 🍻🍻 on the Wall - HTML](https://htmlpreview.github.io/?https://github.com/vcao/homework_victorcao/blob/master/Week_04/index.html)

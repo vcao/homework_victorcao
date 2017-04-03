@@ -1,15 +1,6 @@
-function sumDbl(a, b) {
-
-    function dbl(a,b) {
-
+(function() {
+    var x = document.querySelectorAll(".decorated");
+    for (var i=0; i < x.length; i++) {
+        x[i].click();
     }
-}
-
-
-var addDbl = function(a,b) {
-
-    var c = a + b;
-
-    function
-
-}
+})();

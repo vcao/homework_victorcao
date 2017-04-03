@@ -1,4 +1,7 @@
 // currency object
+
+// Include data validation
+
 var currencies = {
     "USD": {"symbol": "$", "name": "US Dollar(s)", "rate": 1},
     "GBP": {"symbol": "£", "name": "British Pound Sterling", "rate": 0.79593},

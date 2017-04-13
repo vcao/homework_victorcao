@@ -58,7 +58,7 @@ $(function(){
     $('#apiRequestButton').click(function(clickEvent){
         console.log("I want to make an API request");
 
-        $.get("http://headshot.mockable.io/menu", function(response) {
+        $.get("https://headshot.mockable.io/menu", function(response) {
            $('#menu').html(''); //reset menu
 
             for (meal in response) {

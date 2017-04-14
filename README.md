@@ -16,3 +16,4 @@
 #### Week 05
 There was no homework, but worked on a few projects to practice API requests, DOM injection, templating, working with Objects.
 * [Lyfty Eats - Order food](https://htmlpreview.github.io/?https://github.com/vcao/homework_victorcao/blob/master/Week_05/lyftyEats/index.html)
+* [Shoe Store](https://htmlpreview.github.io/?https://github.com/vcao/homework_victorcao/blob/master/Week_05/shoestore/index.html)

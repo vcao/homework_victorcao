@@ -1,4 +1,6 @@
+
 $(function(){
+    var cart = []; //initialize cart
     var products    = [
         {
             "item": "Curry 3s",
@@ -10,9 +12,9 @@ $(function(){
         },
         {
             "item": "Satoni Men's Dress Shoes",
-            "details": "Men's dress shoe for working professional",
+            "details": "For working professional",
             "image": "http://www.shoesandshirts.nl/img/santoni-livorno_200x200_1933.png",
-            "price": 0,
+            "price": 300.00,
             "count": 0,
             "quantity": 5
         },
@@ -20,7 +22,7 @@ $(function(){
             "item": "Heels",
             "details": "Lookin good at work and at da club",
             "image": "http://picture-cdn.wheretoget.it/k/e/kecf20.jpg",
-            "price": 500,
+            "price": 500.00,
             "count": 0,
             "quantity": 8
         },
@@ -41,7 +43,7 @@ $(function(){
             "quantity": 50
         }
     ];
-    var cart        = [];
+    
 
     //Add products to the store
     for(var i = 0; i < products.length; i++)
@@ -50,23 +52,39 @@ $(function(){
         var image = product["image"] || 'default.jpg';
         var string = "";
 
-        string += '<div class="col-xs-2">';
+        string += '<div class="col-xs-12 col-sm-6 col-md-3">';
         string += '  <div class="product text-center">';
         string += '  <img class="img-thumbnail" src="' + image +'"/>';
         string += '  <div class="title">' + product["item"] + '</div>';
         string += '  <div class="price">' + product["price"].toFixed(2) + '</div>';
         string += '  <div class="details">' + product["details"] + '</div>';
         string += '  <div class="quantity">Quantity';
-        string += getSelect(product["item"], product["quantity"]);
+        string +=   getSelect(product["quantity"]);
         string += '  </div>';
-        string += '  <button class="btn btn-success" value=' + i +   '>Add to Cart</button>';
+        string += '  <button class="addCart btn btn-success" value="product-' + i + '">Add to Cart</button>';
         string += '</div>';       
         
         $('#products').append(string);
     }
 
     //Add product event
-    $('#products').on('click', '.btn', function(button){
+    $('#products').on('click', '.addCart', function(){
+        var item = $(this).parent();
+        var title = item.find('.title').text();
+        var price = parseFloat(item.find('.price').text());
+        var qty = parseInt(item.find("select").find(":selected").val());
+        var itemId = $(this).val();
+        
+        if(!cart[itemId]) {
+            cart[itemId] = {
+                "title": title,
+                "price": price,
+                "qty": qty
+            };
+        } else {
+            cart[itemId]["qty"] += qty;
+        }
+        console.log(cart);
      });
 
     //View cart event
@@ -75,31 +93,35 @@ $(function(){
         $('#cartContents').html('');
 
         //Build the cart
-        for(var i = 0; i < products.length; i++)
+        var string = "";
+        var total = 0;
+        for(item in cart)
         {
-            var product = products[i]
-            var count = product["count"];
-            if(count > 0) {
-                var string = "";
+            var qty = cart[item]["qty"];
+            var price = parseFloat(cart[item]["price"]);
+            var title = cart[item]["title"];
+            var subtotal = (qty * price);
+            total += subtotal;
 
-                string += '<li class="list-group-item clearfix">';
-                string += product["item"];
-                string += '<span class="badge badge-pill badge-primary">' + count + '</span>';
-                string += '</li>';
-
-                $('#cartContents').append(string);
-            }
+            
+            string += '<li class="list-group-item clearfix">';
+            string += title;
+            string += '<div class="pull-right text-right">$' + subtotal.toFixed(2) + ' <span class="badge badge-pill badge-primary">' + qty + '</span></div>';
+            string += '</li>';
+            
         }
+        $('#cartContents').append(string);
+        $('#totalNum').html(total.toFixed(2));
     });
 
     // Get selection
-    function getSelect(name, quantity) {
+    function getSelect(quantity) {
         var string = "";
 
-        string += '<select id="' + name + '"">'
+        string += '<select>';
 
         for(var i = 1; i <= quantity; i++) {
-            string += '<option value=' + i + '>' + i + '</option>';
+            string += '<option value="' + i + '">' + i + '</option>';
         }
 
         string += '</select>';

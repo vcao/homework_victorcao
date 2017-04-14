@@ -1,5 +1,6 @@
 var cart = [];
 $(function(){
+    
     // update Cart
     function updateCart() {
         $('#cart').html('');

@@ -1,6 +1,7 @@
-var cart = [];
+
 $(function(){
-    
+    var cart = []; // initialize the cart object
+
     // update Cart
     function updateCart() {
         $('#cart').html('');
@@ -25,15 +26,14 @@ $(function(){
     // remove from cart
     $('#cart').on('click', '.remove', function() {
         // set values of record
-
         var meal = $(this).attr("data-meal");
         var item = $(this).val();
-        cart[meal][item] = cart[meal][item] - 1;
+        cart[meal][item] = cart[meal][item] - 1; // subtract one of these items
 
         if(cart[meal][item] < 1) {
-          delete cart[meal][item];
+          delete cart[meal][item]; // if the item is less than 1, delete the object so it doesn't show 0 or a negative number
         }
-        updateCart();
+        updateCart(); //every time you remove, update the cart view
     });
      
 
@@ -43,12 +43,12 @@ $(function(){
           var meal = $(this).attr("data-meal");
           var item = $(this).val();
           
-          if(!cart[meal][item]) {
+          if(!cart[meal][item]) { //if this item doesn't exist, set one
             cart[meal][item] = 1;
           } else {
-            cart[meal][item]++;
+            cart[meal][item]++; //if it does exist, add another
           }
-          updateCart();         
+          updateCart(); // update the cart view
     });
 
 

@@ -69,39 +69,40 @@ $(function(){
 
     //Add product event
     $('#products').on('click', '.addCart', function(){
-        var item = $(this).parent();
+        var item = $(this).parent(); // make a shorthand item to select existing data
         var title = item.find('.title').text();
         var price = parseFloat(item.find('.price').text());
         var qty = parseInt(item.find("select").find(":selected").val());
         var itemId = $(this).val();
         
-        if(!cart[itemId]) {
+        if(!cart[itemId]) { //if not already in cart, add to cart
             cart[itemId] = {
                 "title": title,
                 "price": price,
                 "qty": qty
             };
         } else {
-            cart[itemId]["qty"] += qty;
+            // if it is in the cart, locate using variables and add the quantity. This also adds on top of the existing quantity.
+            cart[itemId]["qty"] += qty; 
         }
         console.log(cart);
      });
 
     //View cart event
     $('#viewCart').on('click', function(){
-        //Clear the cart
+        //Clear the cart. You're technically rebuilding the cart every time.
         $('#cartContents').html('');
 
         //Build the cart
         var string = "";
         var total = 0;
-        for(item in cart)
+        for(item in cart) // iterate through the cart object
         {
             var qty = cart[item]["qty"];
-            var price = parseFloat(cart[item]["price"]);
+            var price = parseFloat(cart[item]["price"]); //store numbers
             var title = cart[item]["title"];
             var subtotal = (qty * price);
-            total += subtotal;
+            total += subtotal; // recalculate total
 
             
             string += '<li class="list-group-item clearfix">';
@@ -114,7 +115,7 @@ $(function(){
         $('#totalNum').html(total.toFixed(2));
     });
 
-    // Get selection
+    // Build option values for quantity
     function getSelect(quantity) {
         var string = "";
 

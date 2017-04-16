@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Place searches</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100vh;
+      }
+      #placeList {
+        height: 100vh;
+        overflow: scroll;
+      }
+
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    
+    <script>
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+      // Unordered list on the left
+      $(function(){
+          $('#apiForm').submit(function(submitEvent){
+              submitEvent.preventDefault();
+          })
+          
+          $('#lookup').click(function(clickEvent){
+              var encoded_address = encodeURIComponent($('#address').val());
+              var keyword = ($('#keyword').val());
+
+              //The GET request that Google expects:
+              //https://maps.googleapis.com/maps/api/geocode/json?&address=360%20E%202nd%20Street%2C%20Los%20Angeles%2C%20CA
+              var request_url = "https://maps.googleapis.com/maps/api/geocode/json?&address=" + encoded_address
+
+              //Make an API request to the request_url and write an anonymous function to handle the response
+              $.get(request_url,function(response){
+
+                  var lat = response["results"][0]["geometry"]["location"]["lat"];
+                  var lng = response["results"][0]["geometry"]["location"]["lng"];
+
+
+                  //Step 1 - create a position OBJECT with 2 keys: "lat" & "lng"
+                  //Step 2 - set each of those keys the the values of the respective variables above
+                  //Step 3 - call initMap() and pass it your position object
+                  var myPosition = {lat: lat, lng: lng};
+
+                  initMap(myPosition, keyword);
+              });
+          });
+      });
+      
+      var map;
+      var infowindow;
+
+      function initMap(position, keyword) {
+         if(!position)
+            {
+                var position = { lat: 34.0478914, lng: -118.2401423 };
+            }
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: position,
+          zoom: 15
+        });
+
+        infowindow = new google.maps.InfoWindow();
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch({
+          location: position,
+          radius: 1000,
+          type: keyword
+        }, callback);
+      }
+
+      function callback(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          $('#placeList').html('');
+          for (var i = 0; i < results.length; i++) {
+            createMarker(results[i]);
+            var placeItem = results[i];
+            var string = '';
+             string += '<li class="list-group-item">';
+             string += '<h5>' + placeItem["name"] + '</h5>';
+             string += (placeItem["rating"] ? '<h6>Rating: ' + placeItem["rating"] + '</h6>' : '');
+             if(placeItem["opening_hours"]) {
+                string += (placeItem["opening_hours"]["open_now"] ? '<span class="label label-success">Open</span>' : '<span class="label label-danger">Closed</span>');
+             } 
+             string += '</li>';
+            $('#placeList').append(string);
+          }
+          console.log(results);
+        }
+      }
+
+      function createMarker(place) {
+        var placeLoc = place.geometry.location;
+        var marker = new google.maps.Marker({
+          map: map,
+          position: place.geometry.location
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.setContent(place.name);
+          infowindow.open(map, this);
+        });
+      }
+    </script>
+  </head>
+  <body>
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-sm-3">
+              <div class="panel panel-primary">
+                  <div class="panel-heading">
+                      <h2 class="panel-title">Yoogle Maps</h2>
+                  </div>
+                  <div class="panel-body">
+                      <form id="apiForm">
+                          <div class="form-group">
+                              <input id="address" class="form-control" type="text" value="360 E 2nd Street, Los Angeles, CA" placeholder="Enter an address">
+                              <input id="keyword" class="form-control" type="text" value="store">
+                          </div>
+                          <div class="form-group">
+                              <button class="btn btn-primary pull-right" id="lookup">
+                                  <i class="fa fa-search"></i> Lookup
+                              </button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+              <ul id="placeList" class="list-group">
+              </ul>
+          </div>
+          <div class="col-sm-9">
+              <div id="map"></div>
+          </div>
+      </div>
+  </div>
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3xVUF-TXv7P4corAK6gCJyHewrMe-Ric&libraries=places&callback=initMap" async defer></script>
+  </body>
+</html>

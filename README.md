@@ -20,7 +20,7 @@ There was no homework, but worked on a few projects to practice API requests, DO
 
 ### Week 06
 #### In-Class
-* [Yoogle Maps](https://htmlpreview.github.io/?https://github.com/vcao/homework_victorcao/blob/master/Week_06/yoogle-maps/index.html) - Google Maps API
+* [Yoogle Maps](https://htmlpreview.github.io/?https://github.com/vcao/homework_victorcao/blob/master/Week_05/yoogle-maps/index.html) - Google Maps API
 
 #### Homework
 * Pending...

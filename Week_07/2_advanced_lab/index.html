@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Angular Task List</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Custom styles for this template -->
+    <link href="./css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-fluid" ng-controller="StoreController as sc">
+        <div class="row">
+            <div class="col-xs-6">
+                <h3>Products</h3>
+                <ul id="products" class="list-group">
+                    <li class="list-group-item" ng-repeat="product in sc.products">{{ product.item }} <button class="btn btn-success btn-xs" ng-click="sc.addCart(product)" ng-disabled="product.qty.inventory<1">Add to Cart</button> <span class="badge pull-right">{{ product.qty.inventory }}</span></li>
+                </ul>
+            </div>
+            <div class="col-xs-6">
+                <h3>Cart</h3>
+                <ul id="cart" class="list-group">
+                    <li class="list-group-item" ng-repeat="product in sc.products" ng-if="product.qty.cart>0">{{product.item }} <button class="btn btn-danger btn-xs" ng-click="sc.removeCart(product)">Remove</button><span class="badge pull-right">{{ product.qty.cart }}</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Angular, jQuery & Bootstrap
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/index.js"></script>
+
+  </body>
+</html>

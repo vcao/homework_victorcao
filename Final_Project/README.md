@@ -1,6 +1,7 @@
 # Final Project Ideas
 ### Civic Relationship Management
 **Description**: Contact and case management system 
+**Specifications**__
 * Store contact information in a database
 * Log interactions
 * Case management

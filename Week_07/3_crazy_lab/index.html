@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Victor's Angular Store</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Custom styles for this template -->
+    <link href="./css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Victor's Angular Store</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-6" ng-controller="StoreController">
+                <h3>{{ page }}</h3>
+                <ul id="products" class="list-group">
+                    <li class="list-group-item" ng-repeat="product in products">
+                        <h5>{{ product.item }} <span>{{ product.price | currency }}</span><span class="badge pull-right">{{ product.qty.inventory }}</span></h5>
+                    <button class="btn btn-success btn-xs" ng-click="addToCart(product)" ng-disabled="product.qty.inventory<1">Add to Cart</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-6" ng-controller="CartController">
+                <h3>{{ page }}</h3>
+                <ul id="cart" class="list-group">
+                    <li class="list-group-item" ng-repeat="product in cart" ng-if="product.qty.cart>0">
+                        <h5>{{ product.item }}<span class="badge pull-right">{{ product.qty.cart }} | {{ product.subtotal | currency }}</span></h5>
+                    <button class="btn btn-danger btn-xs" ng-click="removeCart(product)">Remove</button></li>
+                </ul>
+                <h4 class="total">Total: {{ total() | currency }}</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- Angular, jQuery & Bootstrap
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/index.js"></script>
+
+  </body>
+</html>
